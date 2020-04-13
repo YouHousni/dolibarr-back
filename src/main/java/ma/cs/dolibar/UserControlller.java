@@ -1,12 +1,11 @@
 package ma.cs.dolibar;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+
 public class UserControlller {
 
     private UserService userService;
@@ -15,9 +14,19 @@ public class UserControlller {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping("/users")
     public User create(@RequestBody User user){
         return userService.create(user);
 
+    }
+
+    @GetMapping("/users")
+    public List<User> list(String token){
+        return userService.list(token);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody Account account){
+        return userService.login(account);
     }
 }
